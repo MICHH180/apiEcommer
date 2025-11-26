@@ -33,7 +33,7 @@ export const crearUsuarios = async (req: any, res: any) => {
             });
         }
 
-        const nuevoUsuario =       await User.create({
+const nuevoUsuario =       await User.create({        
             nombre, 
             email,
             contrasenia,
@@ -114,8 +114,8 @@ export const actualizarDatos = async (req: any, res: any) => {
       if (req.body.id_roles) camposAActualizar.id_roles = req.body.id_roles;
 
       const existeRol = await User.findOne({ where: { id_roles } });
-if (!existeRol) {
-  return res.status(400).json({ message: `El rol con id ${id_roles} no existe` });
+      if (!existeRol) {
+      return res.status(400).json({ message: `El rol con id ${id_roles} no existe` });
 }
 
 
