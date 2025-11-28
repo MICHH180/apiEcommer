@@ -22,10 +22,9 @@ try{
 };
 
 //insertar datos
-
 export const crearUsuarios = async (req: any, res: any) => {
     try{
-        const {nombre, email, contrasenia, id_roles} = req.body;
+        const { nombre, email, contrasenia, id_roles } = req.body;
 
         if(!nombre || !email || !contrasenia || !id_roles){
             return res.status(400).json({
@@ -33,21 +32,21 @@ export const crearUsuarios = async (req: any, res: any) => {
             });
         }
 
-const nuevoUsuario =       await User.create({        
+      const nuevoUsuario =   await User.create({        
             nombre, 
             email,
             contrasenia,
             id_roles,
         });
 
-        return res.estatus(200).json({
+        return res.status(200).json({
         message : "USUARIO CREADO EXITOSAMENTE :D"
         });
        
 
-    }catch(error){
+    } catch(error){
         return res.status(500).json({
-            message: error ,
+            message: "Error al crear usuario",
         });
     }
 };
