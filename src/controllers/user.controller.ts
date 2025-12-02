@@ -51,6 +51,41 @@ export const crearUsuarios = async (req: any, res: any) => {
     }
 };
 
+// eliminar
+export const eliminarUsuario = async (req: any, res: any) => {
+  try {
+      // El ID del usuario a eliminar se toma de los parámetros de la URL (ej: /usuarios/123)
+      const userId = req.params.id;
+
+      // 1. Intentar eliminar el usuario
+      // El método destroy de Sequelize devuelve el número de filas eliminadas
+      const filasEliminadas = await User.destroy({
+          where: { id: userId },
+      });
+
+      // 2. Comprobar si se eliminó alguna fila
+      if (filasEliminadas === 0) {
+          // Si filasEliminadas es 0, el usuario con ese ID no fue encontrado
+          return res.status(404).json({
+              message: "Usuario no encontrado para eliminar",
+          });
+      }
+
+      // 3. Respuesta exitosa
+      return res.status(200).json({
+          message: "USUARIO ELIMINADO EXITOSAMENTE :D",
+          id_eliminado: userId
+      });
+
+  } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+          message: "Error al intentar eliminar el usuario",
+          error,
+      });
+  }
+};
+
 //update
 /*export const actualizarDatos = async (req: any, res: any) =>{
 try{
@@ -100,6 +135,8 @@ export const actualizarDatos = async (req: any, res: any) => {
           message: "Todos los campos son obligatorios",
         });
       }
+
+      
       
 
       
